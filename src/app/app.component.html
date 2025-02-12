@@ -32,6 +32,7 @@
               [(ngModel)]="location.address"
               placeholder="Location"
               class="location-input"
+              list="countries"
             />
           </div>
         </div>
@@ -64,9 +65,14 @@
     </div>
 
     <button class="calculate-button" (click)="calculate()">
-      Calculate
+      Calculate emissions
     </button>
   </div>
+
+  <!-- Datalist for country suggestions -->
+  <datalist id="countries">
+    <option *ngFor="let country of countries" [value]="country">
+  </datalist>
 
   <div class="map-section" id="map"></div>
 </div>
