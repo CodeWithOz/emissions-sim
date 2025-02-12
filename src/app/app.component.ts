@@ -185,6 +185,10 @@ export class App implements OnInit {
     this.locations.push({ address: '', selectedTransport: '' });
   }
 
+  get isCalculateDisabled(): boolean {
+    return this.locations.some(location => !location.address.trim());
+  }
+
   calculate() {
     // For demo purposes, using sample calculation
     // In a real app, these would be calculated based on actual distances and emission factors

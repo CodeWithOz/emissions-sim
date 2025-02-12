@@ -66,7 +66,12 @@
       </div>
     </div>
 
-    <button class="calculate-button" (click)="calculate()">
+    <button 
+      class="calculate-button" 
+      (click)="calculate()"
+      [disabled]="isCalculateDisabled"
+      [class.disabled]="isCalculateDisabled"
+    >
       Calculate emissions
     </button>
   </div>
