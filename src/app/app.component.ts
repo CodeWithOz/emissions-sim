@@ -29,8 +29,8 @@ export class App implements OnInit {
   tonnage: number = 1;
   freightUnit: string = 'tonnes';
   locations: Location[] = [
-    { address: '', selectedTransport: '' },
-    { address: '', selectedTransport: '' }
+    { address: '', selectedTransport: 'plane' },
+    { address: '', selectedTransport: 'plane' }
   ];
   transportOptions: TransportOption[] = [
     { id: 'truck', emoji: '🚛' },
@@ -73,6 +73,7 @@ export class App implements OnInit {
   countries: string[] = this.countryData.map(country => country.name);
   private map!: L.Map;
   private markers: L.Marker[] = [];
+  private routeLine: L.Polyline | null = null;
 
   ngOnInit() {
     this.initializeMap();
@@ -94,27 +95,70 @@ export class App implements OnInit {
   }
 
   onLocationInput(locationIndex: number, value: string) {
-    this.clearMarkers();
     const matchedCountry = this.countryData.find(
       country => country.name.toLowerCase() === value.toLowerCase()
     );
     if (matchedCountry) {
+      // Remove the old marker for this location if it exists
+      if (this.markers[locationIndex]) {
+        this.markers[locationIndex].remove();
+      }
+      
       const marker = L.marker(matchedCountry.coordinates, {
         icon: L.divIcon({
-          html: '✈️',
+          html: '📍',
           className: 'marker-icon',
-          iconSize: [30, 30],
+          iconSize: [60, 60],
           iconAnchor: [15, 15]
         })
       }).addTo(this.map);
-      this.markers.push(marker);
-      this.map.setView(matchedCountry.coordinates, 4);
+
+      // Update or add the marker at the specific location index
+      this.markers[locationIndex] = marker;
+
+      // If this is a new location being added, center the map
+      if (locationIndex === this.markers.length - 1) {
+        this.map.setView(matchedCountry.coordinates, 4);
+      }
+
+      this.updateRouteLine();
     }
   }
 
   private clearMarkers() {
-    this.markers.forEach(marker => marker.remove());
+    this.markers.forEach(marker => marker?.remove());
     this.markers = [];
+    if (this.routeLine) {
+      this.routeLine.remove();
+      this.routeLine = null;
+    }
+  }
+
+  private updateRouteLine() {
+    // Remove existing route line
+    if (this.routeLine) {
+      this.routeLine.remove();
+    }
+
+    // Get all valid markers (markers that exist and have coordinates)
+    const validMarkers = this.markers.filter(marker => marker);
+    
+    if (validMarkers.length >= 2) {
+      // Create an array of coordinates from the markers
+      const coordinates = validMarkers.map(marker => marker.getLatLng());
+      
+      // Create and add the polyline
+      this.routeLine = L.polyline(coordinates, {
+        color: '#007bff',
+        weight: 3,
+        opacity: 0.7
+      }).addTo(this.map);
+
+      // Fit the map bounds to show all markers and the route
+      this.map.fitBounds(this.routeLine.getBounds(), {
+        padding: [50, 50]
+      });
+    }
   }
 
   selectTransport(locationIndex: number, transportId: string) {

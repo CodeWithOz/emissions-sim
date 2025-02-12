@@ -102,28 +102,31 @@
 }
 
 .transport-option {
-  background: white;
-  border: 1px solid #e9ecef;
+  width: 40px;
+  height: 40px;
+  border: 2px solid #e0e0e0;
   border-radius: 8px;
-  width: 45px;
-  height: 45px;
+  background: white;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 20px;
   transition: all 0.2s ease;
+  padding: 0;
+  margin: 0 4px;
 }
 
 .transport-option:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+  border-color: #007bff;
+  transform: translateY(-2px);
 }
 
 .transport-option.selected {
-  background: #4CAF50;
-  color: white;
-  box-shadow: 0 2px 4px rgba(76, 175, 80, 0.3);
+  border-color: #007bff;
+  background-color: #e7f3ff;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
 }
 
 .add-location-row {
@@ -185,10 +188,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: white;
-  border-radius: 50%;
-  width: 30px !important;
-  height: 30px !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  font-size: 16px;
+  font-size: 40px;
+  width: 60px !important;
+  height: 60px !important;
+  background: none;
+  border: none;
+  box-shadow: none;
 }

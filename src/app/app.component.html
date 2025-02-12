@@ -46,6 +46,7 @@
                 *ngFor="let transport of transportOptions"
                 class="transport-option"
                 [class.selected]="location.selectedTransport === transport.id"
+                [class.selected-state]="location.selectedTransport === transport.id"
                 (click)="selectTransport(i, transport.id)"
               >
                 {{ transport.emoji }}
