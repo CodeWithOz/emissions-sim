@@ -180,3 +180,15 @@
   width: 100%;
   margin-top: 20px;
 }
+
+.marker-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-radius: 50%;
+  width: 30px !important;
+  height: 30px !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  font-size: 16px;
+}

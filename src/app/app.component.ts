@@ -13,6 +13,11 @@ interface TransportOption {
   emoji: string;
 }
 
+interface CountryData {
+  name: string;
+  coordinates: [number, number];
+}
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -34,28 +39,40 @@ export class App implements OnInit {
     { id: 'train', emoji: '🚂' },
   ];
 
-  countries: string[] = [
-    'Afghanistan', 'Albania', 'Algeria', 'Andorra', 'Angola', 'Antigua and Barbuda', 'Argentina', 'Armenia', 'Australia', 'Austria', 'Azerbaijan',
-    'Bahamas', 'Bahrain', 'Bangladesh', 'Barbados', 'Belarus', 'Belgium', 'Belize', 'Benin', 'Bhutan', 'Bolivia', 'Bosnia and Herzegovina', 
-    'Botswana', 'Brazil', 'Brunei', 'Bulgaria', 'Burkina Faso', 'Burundi', 'Cabo Verde', 'Cambodia', 'Cameroon', 'Canada', 'Central African Republic',
-    'Chad', 'Chile', 'China', 'Colombia', 'Comoros', 'Congo', 'Costa Rica', 'Croatia', 'Cuba', 'Cyprus', 'Czech Republic', 'Denmark', 'Djibouti',
-    'Dominica', 'Dominican Republic', 'Ecuador', 'Egypt', 'El Salvador', 'Equatorial Guinea', 'Eritrea', 'Estonia', 'Eswatini', 'Ethiopia',
-    'Fiji', 'Finland', 'France', 'Gabon', 'Gambia', 'Georgia', 'Germany', 'Ghana', 'Greece', 'Grenada', 'Guatemala', 'Guinea', 'Guinea-Bissau',
-    'Guyana', 'Haiti', 'Honduras', 'Hungary', 'Iceland', 'India', 'Indonesia', 'Iran', 'Iraq', 'Ireland', 'Israel', 'Italy', 'Jamaica', 'Japan',
-    'Jordan', 'Kazakhstan', 'Kenya', 'Kiribati', 'Kuwait', 'Kyrgyzstan', 'Laos', 'Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Libya',
-    'Liechtenstein', 'Lithuania', 'Luxembourg', 'Madagascar', 'Malawi', 'Malaysia', 'Maldives', 'Mali', 'Malta', 'Marshall Islands', 'Mauritania',
-    'Mauritius', 'Mexico', 'Micronesia', 'Moldova', 'Monaco', 'Mongolia', 'Montenegro', 'Morocco', 'Mozambique', 'Myanmar', 'Namibia', 'Nauru',
-    'Nepal', 'Netherlands', 'New Zealand', 'Nicaragua', 'Niger', 'Nigeria', 'North Korea', 'North Macedonia', 'Norway', 'Oman', 'Pakistan',
-    'Palau', 'Palestine', 'Panama', 'Papua New Guinea', 'Paraguay', 'Peru', 'Philippines', 'Poland', 'Portugal', 'Qatar', 'Romania', 'Russia',
-    'Rwanda', 'Saint Kitts and Nevis', 'Saint Lucia', 'Saint Vincent and the Grenadines', 'Samoa', 'San Marino', 'Sao Tome and Principe',
-    'Saudi Arabia', 'Senegal', 'Serbia', 'Seychelles', 'Sierra Leone', 'Singapore', 'Slovakia', 'Slovenia', 'Solomon Islands', 'Somalia',
-    'South Africa', 'South Korea', 'South Sudan', 'Spain', 'Sri Lanka', 'Sudan', 'Suriname', 'Sweden', 'Switzerland', 'Syria', 'Taiwan',
-    'Tajikistan', 'Tanzania', 'Thailand', 'Timor-Leste', 'Togo', 'Tonga', 'Trinidad and Tobago', 'Tunisia', 'Turkey', 'Turkmenistan', 'Tuvalu',
-    'Uganda', 'Ukraine', 'United Arab Emirates', 'United Kingdom', 'United States', 'Uruguay', 'Uzbekistan', 'Vanuatu', 'Vatican City',
-    'Venezuela', 'Vietnam', 'Yemen', 'Zambia', 'Zimbabwe'
+  countryData: CountryData[] = [
+    { name: 'Afghanistan', coordinates: [34.5553, 69.2075] },
+    { name: 'Albania', coordinates: [41.3275, 19.8187] },
+    { name: 'Algeria', coordinates: [36.7538, 3.0588] },
+    { name: 'Andorra', coordinates: [42.5063, 1.5218] },
+    { name: 'Angola', coordinates: [-8.8147, 13.2302] },
+    { name: 'Argentina', coordinates: [-34.6037, -58.3816] },
+    { name: 'Armenia', coordinates: [40.1792, 44.4991] },
+    { name: 'Australia', coordinates: [-35.2809, 149.1300] },
+    { name: 'Austria', coordinates: [48.2082, 16.3738] },
+    { name: 'Azerbaijan', coordinates: [40.4093, 49.8671] },
+    { name: 'Belgium', coordinates: [50.8503, 4.3517] },
+    { name: 'Brazil', coordinates: [-15.7975, -47.8919] },
+    { name: 'Canada', coordinates: [45.4215, -75.6972] },
+    { name: 'China', coordinates: [39.9042, 116.4074] },
+    { name: 'France', coordinates: [48.8566, 2.3522] },
+    { name: 'Germany', coordinates: [52.5200, 13.4050] },
+    { name: 'India', coordinates: [28.6139, 77.2090] },
+    { name: 'Italy', coordinates: [41.9028, 12.4964] },
+    { name: 'Japan', coordinates: [35.6762, 139.6503] },
+    { name: 'Mexico', coordinates: [19.4326, -99.1332] },
+    { name: 'Netherlands', coordinates: [52.3676, 4.9041] },
+    { name: 'New Zealand', coordinates: [-41.2866, 174.7756] },
+    { name: 'Russia', coordinates: [55.7558, 37.6173] },
+    { name: 'South Africa', coordinates: [-25.7461, 28.1881] },
+    { name: 'Spain', coordinates: [40.4168, -3.7038] },
+    { name: 'Sweden', coordinates: [59.3293, 18.0686] },
+    { name: 'United Kingdom', coordinates: [51.5074, -0.1278] },
+    { name: 'United States', coordinates: [38.8977, -77.0365] }
   ];
 
+  countries: string[] = this.countryData.map(country => country.name);
   private map!: L.Map;
+  private markers: L.Marker[] = [];
 
   ngOnInit() {
     this.initializeMap();
@@ -76,6 +93,30 @@ export class App implements OnInit {
     }).addTo(this.map);
   }
 
+  onLocationInput(locationIndex: number, value: string) {
+    this.clearMarkers();
+    const matchedCountry = this.countryData.find(
+      country => country.name.toLowerCase() === value.toLowerCase()
+    );
+    if (matchedCountry) {
+      const marker = L.marker(matchedCountry.coordinates, {
+        icon: L.divIcon({
+          html: '✈️',
+          className: 'marker-icon',
+          iconSize: [30, 30],
+          iconAnchor: [15, 15]
+        })
+      }).addTo(this.map);
+      this.markers.push(marker);
+      this.map.setView(matchedCountry.coordinates, 4);
+    }
+  }
+
+  private clearMarkers() {
+    this.markers.forEach(marker => marker.remove());
+    this.markers = [];
+  }
+
   selectTransport(locationIndex: number, transportId: string) {
     this.locations[locationIndex].selectedTransport = transportId;
   }
@@ -85,7 +126,6 @@ export class App implements OnInit {
   }
 
   calculate() {
-    // Implement calculation logic
     console.log('Calculating emissions...');
     console.log('Tonnage:', this.tonnage);
     console.log('Unit:', this.freightUnit);
