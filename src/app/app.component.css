@@ -1,0 +1,164 @@
+.calculator-container {
+  display: flex;
+  height: 100vh;
+}
+
+.form-section {
+  width: 400px;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.map-section {
+  flex: 1;
+}
+
+:host ::ng-deep .leaflet-container {
+  background: #f5f5f5;
+}
+
+:host ::ng-deep .leaflet-tile-pane {
+  opacity: 0.9;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  color: #4CAF50;
+  font-size: 24px;
+  margin-left: 10px;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.locations-container {
+  position: relative;
+  padding-left: 15px;
+}
+
+.location-group {
+  position: relative;
+}
+
+.location-input-group {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.location-pin-line {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pin-icon {
+  font-size: 20px;
+  margin-bottom: 5px;
+  line-height: 1;
+}
+
+.vertical-line {
+  width: 2px;
+  background-color: #e9ecef;
+  flex-grow: 1;
+  margin: 5px 0;
+  height: 100%;
+}
+
+.location-content {
+  flex: 1;
+}
+
+.location-input {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  padding: 10px;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.transport-options {
+  margin: 0 0 15px 35px;
+}
+
+.transport-icons-group {
+  display: flex;
+  gap: 10px;
+}
+
+.transport-option {
+  background: white;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.transport-option:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+.transport-option.selected {
+  background: #4CAF50;
+  color: white;
+  box-shadow: 0 2px 4px rgba(76, 175, 80, 0.3);
+}
+
+.add-location-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: white;
+  border: 1px solid #e9ecef;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  margin-left: 35px;
+}
+
+.add-location-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+.plus-icon {
+  font-size: 24px;
+  line-height: 1;
+  color: #4CAF50;
+}
+
+.calculate-button {
+  background: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 20px;
+}

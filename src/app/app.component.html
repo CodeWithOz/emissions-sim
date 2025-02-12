@@ -1,0 +1,66 @@
+<div class="calculator-container">
+  <div class="form-section">
+    <div class="header">
+      <h1>Emission Calculator</h1>
+    </div>
+
+    <div class="input-group">
+      <div class="input-row">
+        <input 
+          type="number" 
+          [(ngModel)]="tonnage" 
+          placeholder="Number of tonnes"
+          class="location-input"
+        />
+        <select [(ngModel)]="freightUnit" class="location-input">
+          <option value="tonnes">tonnes</option>
+          <option value="kg">kg</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="locations-container">
+      <div *ngFor="let location of locations; let i = index" class="location-group">
+        <div class="location-input-group">
+          <div class="location-pin-line">
+            <div class="pin-icon">📍</div>
+            <div class="vertical-line" *ngIf="i < locations.length - 1"></div>
+          </div>
+          <div class="location-content">
+            <input 
+              type="text" 
+              [(ngModel)]="location.address"
+              placeholder="Location"
+              class="location-input"
+            />
+          </div>
+        </div>
+
+        <!-- Transport options between locations -->
+        <div class="transport-options" *ngIf="i < locations.length - 1">
+          <div class="transport-icons-group">
+            <button 
+              *ngFor="let transport of transportOptions"
+              class="transport-option"
+              [class.selected]="location.selectedTransport === transport.id"
+              (click)="selectTransport(i, transport.id)"
+            >
+              {{ transport.emoji }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add location button -->
+      <button class="add-location-button" (click)="addLocation()">
+        <span class="plus-icon">+</span>
+      </button>
+    </div>
+
+    <button class="calculate-button" (click)="calculate()">
+      Calculate
+    </button>
+  </div>
+
+  <div class="map-section" id="map"></div>
+</div>
