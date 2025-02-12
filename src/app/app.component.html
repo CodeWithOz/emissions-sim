@@ -21,7 +21,7 @@
 
     <div class="locations-container">
       <div *ngFor="let location of locations; let i = index" class="location-group">
-        <div class="location-input-group">
+        <div class="location-row">
           <div class="location-pin-line">
             <div class="pin-icon">📍</div>
             <div class="vertical-line" *ngIf="i < locations.length - 1"></div>
@@ -37,24 +37,30 @@
         </div>
 
         <!-- Transport options between locations -->
-        <div class="transport-options" *ngIf="i < locations.length - 1">
-          <div class="transport-icons-group">
-            <button 
-              *ngFor="let transport of transportOptions"
-              class="transport-option"
-              [class.selected]="location.selectedTransport === transport.id"
-              (click)="selectTransport(i, transport.id)"
-            >
-              {{ transport.emoji }}
-            </button>
+        <div class="transport-section" *ngIf="i < locations.length - 1">
+          <div class="transport-options">
+            <div class="transport-icons-group">
+              <button 
+                *ngFor="let transport of transportOptions"
+                class="transport-option"
+                [class.selected]="location.selectedTransport === transport.id"
+                (click)="selectTransport(i, transport.id)"
+              >
+                {{ transport.emoji }}
+              </button>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- Add location button -->
-      <button class="add-location-button" (click)="addLocation()">
-        <span class="plus-icon">+</span>
-      </button>
+      <div class="add-location-row">
+        <div class="pin-placeholder">
+          <button class="add-location-button" (click)="addLocation()">
+            <span class="plus-icon">+</span>
+          </button>
+        </div>
+      </div>
     </div>
 
     <button class="calculate-button" (click)="calculate()">

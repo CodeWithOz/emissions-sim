@@ -54,46 +54,46 @@
   position: relative;
 }
 
-.location-input-group {
+.location-row {
   display: flex;
   gap: 15px;
   margin-bottom: 15px;
+  position: relative;
 }
 
 .location-pin-line {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 20px;
 }
 
 .pin-icon {
   font-size: 20px;
-  margin-bottom: 5px;
   line-height: 1;
+  margin-top: 10px;
 }
 
 .vertical-line {
   width: 2px;
   background-color: #e9ecef;
-  flex-grow: 1;
-  margin: 5px 0;
-  height: 100%;
+  position: absolute;
+  top: 40px;
+  bottom: -70px;
+  left: 9px;
 }
 
 .location-content {
   flex: 1;
 }
 
-.location-input {
-  background: #f8f9fa;
-  border: 1px solid #e9ecef;
-  padding: 10px;
-  border-radius: 5px;
-  width: 100%;
+.transport-section {
+  margin-bottom: 15px;
+  position: relative;
 }
 
 .transport-options {
-  margin: 0 0 15px 35px;
+  margin-left: 35px;
 }
 
 .transport-icons-group {
@@ -126,6 +126,17 @@
   box-shadow: 0 2px 4px rgba(76, 175, 80, 0.3);
 }
 
+.add-location-row {
+  display: flex;
+  align-items: flex-start;
+  padding-left: 2px;
+}
+
+.pin-placeholder {
+  display: flex;
+  justify-content: center;
+}
+
 .add-location-button {
   display: flex;
   align-items: center;
@@ -138,7 +149,6 @@
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: all 0.2s ease;
-  margin-left: 35px;
 }
 
 .add-location-button:hover {
@@ -150,6 +160,14 @@
   font-size: 24px;
   line-height: 1;
   color: #4CAF50;
+}
+
+.location-input {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  padding: 10px;
+  border-radius: 5px;
+  width: 100%;
 }
 
 .calculate-button {
