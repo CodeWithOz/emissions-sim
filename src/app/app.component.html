@@ -71,6 +71,56 @@
     </button>
   </div>
 
+  <div class="results-section" *ngIf="emissionResults.showResults">
+    <h2 class="results-title">Total Emission</h2>
+    
+    <div class="results-container">
+      <div class="results-group">
+        <h3 class="group-title">Greenhouse Gases</h3>
+        <div class="metrics-container">
+          <div class="metric-card">
+            <div class="metric-icon">☁️</div>
+            <div class="metric-details">
+              <div class="metric-label">CO2e [kg] WtW</div>
+              <div class="metric-value">{{emissionResults.co2e}}</div>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon">☁️</div>
+            <div class="metric-details">
+              <div class="metric-label">CO2e Intensity [g CO2e/tonne-km]</div>
+              <div class="metric-value">{{emissionResults.co2eIntensity}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="results-group">
+        <h3 class="group-title">Mobility</h3>
+        <div class="metrics-container">
+          <div class="metric-card">
+            <div class="metric-icon">🏁</div>
+            <div class="metric-details">
+              <div class="metric-label">Distance [km]</div>
+              <div class="metric-value">{{emissionResults.distance}}</div>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon">⏱️</div>
+            <div class="metric-details">
+              <div class="metric-label">Transport Activity [tonne-km]</div>
+              <div class="metric-value">{{emissionResults.transportActivity}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="detailed-results-button">Detailed Results</button>
+    </div>
+  </div>
+
   <!-- Datalist for country suggestions -->
   <datalist id="countries">
     <option *ngFor="let country of countries" [value]="country">

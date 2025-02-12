@@ -18,6 +18,14 @@ interface CountryData {
   coordinates: [number, number];
 }
 
+interface EmissionResults {
+  co2e: number;
+  co2eIntensity: number;
+  distance: number;
+  transportActivity: number;
+  showResults: boolean;
+}
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -74,6 +82,14 @@ export class App implements OnInit {
   private map!: L.Map;
   private markers: L.Marker[] = [];
   private routeLine: L.Polyline | null = null;
+
+  emissionResults: EmissionResults = {
+    co2e: 0,
+    co2eIntensity: 0,
+    distance: 0,
+    transportActivity: 0,
+    showResults: false
+  };
 
   ngOnInit() {
     this.initializeMap();
@@ -170,9 +186,14 @@ export class App implements OnInit {
   }
 
   calculate() {
-    console.log('Calculating emissions...');
-    console.log('Tonnage:', this.tonnage);
-    console.log('Unit:', this.freightUnit);
-    console.log('Locations:', this.locations);
+    // For demo purposes, using sample calculation
+    // In a real app, these would be calculated based on actual distances and emission factors
+    this.emissionResults = {
+      co2e: 8515.0,
+      co2eIntensity: 819.83,
+      distance: 10386.3,
+      transportActivity: 10386,
+      showResults: true
+    };
   }
 }
