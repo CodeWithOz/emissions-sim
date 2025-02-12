@@ -31,9 +31,7 @@ export class App implements OnInit {
     { id: 'truck', emoji: '🚛' },
     { id: 'ship', emoji: '🚢' },
     { id: 'plane', emoji: '✈️' },
-    { id: 'helicopter', emoji: '🚁' },
     { id: 'train', emoji: '🚂' },
-    { id: 'crane', emoji: '🏗️' }
   ];
 
   private map!: L.Map;
